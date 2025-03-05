@@ -1,11 +1,15 @@
 # Arden Boettcher
-# Insert date here
-# Insert title here
+# 3/5/25
+# Shapes Using Dictionaries
 
 import pygame
-import config
-pygame.init()
+import sys
+from random import choice, randint
 
+import shapes
+import config
+
+pygame.init()
 
 # Setting up the window
 screen = pygame.display.set_mode((config.WIDTH, config.HEIGHT))
@@ -23,19 +27,36 @@ def main_events():
   return True
 
 
+# Chooses one of three random shapes
+def make_shape():
+  return choice([
+      shapes.Randrect(),
+      shapes.Randcircle(),
+      shapes.Randline()
+    ])
+
 
 # Main loop
 def main():
   # The bool for the main loop
   running = True
-  
+
+  shapes_list = []
+
   while running:
 
     # Call events / update running
     running = main_events()
 
+    # Adds another shape
+    shapes_list.append(make_shape())
+
     # Fills window
     screen.fill(config.WHITE)
+
+    # Draws Shapes
+    for shape in shapes_list:
+      shape.draw(screen)
 
     # Updates the Display
     pygame.display.flip()
